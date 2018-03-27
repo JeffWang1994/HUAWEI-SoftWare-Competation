@@ -4,13 +4,16 @@ clear; close all; clc;
 load('TrainData_History.mat');
 data = History;
 y_Prediction=[];
+<<<<<<< HEAD
 Y_Prediction=[];
 Y_real=[];
+=======
+>>>>>>> 38b1429569d99526a438002521c463689fa74068
 W=[];
 % initialize Matrices and Variables
 for i=1:15
     x1=History(3:18,i);
-    x2=History(2:17,i);      % 仅考虑单参数情况
+    x2=History(2:17,i);      
     x3=History(1:16,i);
 %    x4=History(4:15,i);
 %    x5=History(3:14,i);
@@ -37,8 +40,13 @@ J = ComputeCost(X, y, w);
 % Run Gradient Descent
 [w, Js] = GradientDescent(X, y, w, alpha, iterations);
 w
+<<<<<<< HEAD
 w(isnan(w)) = 0;   % 思考为什么w的值会算出为NaN，过拟合问题？
 W=[W;w'];           % 通过增加迭代次数和减小学习率，可以避免w为NaN的情况，猜测是欠拟合
+=======
+W=[W;w'];
+w(isnan(w)) = 0;   
+>>>>>>> 38b1429569d99526a438002521c463689fa74068
 
 x_test=History(17:19,i);
 y=x_test'*w
