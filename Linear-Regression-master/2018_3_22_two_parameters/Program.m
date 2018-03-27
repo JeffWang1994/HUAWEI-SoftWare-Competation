@@ -4,6 +4,9 @@ clear; close all; clc;
 load('TrainData_History.mat');
 data = History;
 y_Prediction=[];
+Y_Prediction=[];
+Y_real=[];
+W=[];
 % initialize Matrices and Variables
 for i=1:15
     x1=History(3:18,i);
@@ -35,12 +38,14 @@ J = ComputeCost(X, y, w);
 [w, Js] = GradientDescent(X, y, w, alpha, iterations);
 w
 w(isnan(w)) = 0;   % 思考为什么w的值会算出为NaN，过拟合问题？
-                   % 通过增加迭代次数和减小学习率，可以避免w为NaN的情况，猜测是欠拟合
+W=[W;w'];           % 通过增加迭代次数和减小学习率，可以避免w为NaN的情况，猜测是欠拟合
 
 x_test=History(17:19,i);
 y=x_test'*w
 y_Prediction=[round(y_Prediction);y];
+Y_Prediction=[ Y_Prediction;y_Prediction'];
 y_real=History(20,:);
+Y_real=[Y_real;y_real];
 end
 
 % calculate success rate
@@ -57,14 +62,3 @@ fenmu=sqrt(pingfang_real/15)+sqrt(pingfang_prediction/15);
 Success_rate=1-fenzi/fenmu
 
 
-%hold on;
-%plot(X(:, 2), X * w, '-');
-%legend('Training data', 'Linear regression');
-%hold off;
-
-% plotting the cost function
-% plot(1: iterations, J_history, '-b');
-
-% Predicting Profits
-%fprintf('Prediction for 35000:\t%f\n', ([1, 3.5] * w) * 10000);
-%fprintf('Prediction for 70000:\t%f\n', ([1, 7] * w) * 10000);
