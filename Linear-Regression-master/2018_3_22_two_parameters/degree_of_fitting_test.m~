@@ -1,0 +1,9 @@
+% This program test the degree of fitting of test data curve and predicted data.
+function degree_of_fitting_test(W,History)
+
+w=W(1,:);
+data=History(:,1);
+redult=[];
+
+for i=1:17
+    prediction=w(1)*
